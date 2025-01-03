@@ -1,11 +1,28 @@
 import pandas as pd
 from datetime import datetime
 from espn_api.football import League
+import helpers as h
 
-desired_width = 320
-pd.set_option('display.width', desired_width)
+Full_login = h.League_Details(h.details_file)
+login = Full_login['money_league']
+League_Id = int(login['League_Id'])
+Year = int(login['Year'])
+s2 = login['s2']
+swid = login['swid']
 
-league = League(league_id=1693265373, year=2024, espn_s2='AEAQ9iOaADgJkgRdupnCAcJk0s4dAvb8NFZ%2BXOSVuJW%2Fd%2FVNZutYZziysRdGuz9hfVhrgGkSlCHwQAO2OfxG8qJ8LD2vzV3zlw9RaQotHz0yDE5f37BvTDdIaF9QdYQtoDQXkdUa%2FedbHQZ%2Fz%2BcttywwvFE8kSyds5SttNpj7YDq82Fq20Kp07R%2FvONVm%2FxqN5VZX9ZU%2Fads6zz24HsiHi8v636yRqtcDR4dsXFU68dUMLdzmJkAx9JTQtGdVdM%2BUjcbqDkCdPqj4100pejmzuryqHlZN4bYYLW2z9m92IPSEg%3D%3D', swid='{3A8578A9-74DD-4DB4-8295-39E210A5042E}')
+
+if h.text_input_1 == 'Y' :
+    print("You will need to have your: League_Id, Year of the season that you wish to examine, s2 ID, and sweid. If you don't know how to get the last two, please reference this forum post: ")
+    League_Id = int(input("Enter League ID: "))
+    Year = int(input("Enter Year: "))
+    s2 = input("Enter S2 ID: (surrounded by" '{}' "" )
+    swid = input("Enter SWID: (surrounded by ' ')")
+elif h.text_input_1 == 'N' :
+    print("Default Selection")
+else:
+    print("Invalid Selection")
+
+league = League(league_id=League_Id, year=Year, espn_s2=s2, swid=swid)
 
 weekly_perf = pd.DataFrame(columns=['week',
                                     'HomeVsAway',
